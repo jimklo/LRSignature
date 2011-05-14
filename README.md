@@ -27,7 +27,7 @@ Installation
 
 1. Install [GNU Privacy Guard](http://www.gnupg.org/)
 
-2. Download the latest release from the [src/dist](./src/dist)
+2. Download the latest release from the [src/dist](./LRSignature/tree/master/src/dist)
 
 3. Install with pip
         
