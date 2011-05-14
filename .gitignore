@@ -1,0 +1,6 @@
+/.DS_Store
+/.project
+/.pydevproject
+*.pyc
+/src/LRSignature/tests/.DS_Store
+/src/LRSignature.egg-info
