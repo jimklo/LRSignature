@@ -17,7 +17,7 @@ Created on May 6, 2011
 
 @author: jklo
 '''
-import unittest, json, calendar, time
+import unittest, json, calendar, time, os
 from gnupg import GPG
 from LRSignature.sign.Sign import Sign_0_21
 from LRSignature.errors import UnknownKeyException
@@ -29,7 +29,7 @@ class Test(unittest.TestCase):
     def __init__(self, methodName="runTest"):
         
         self.gpgbin="/usr/local/bin/gpg"
-        self.gnupgHome = "~/.gnupg"
+        self.gnupgHome = os.path.expanduser(os.path.join("~", ".gnupg"))
         self.gpg = GPG(gpgbinary=self.gpgbin, gnupghome=self.gnupgHome)
         
         unittest.TestCase.__init__(self, methodName)

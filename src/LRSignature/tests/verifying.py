@@ -17,7 +17,7 @@ Created on May 9, 2011
 
 @author: jklo
 '''
-import unittest, calendar, copy, logging
+import unittest, calendar, copy, logging, os
 import json
 from gnupg import GPG
 import time
@@ -65,7 +65,7 @@ class Test(unittest.TestCase):
                                    ]
         
         self.gpgbin="/usr/local/bin/gpg"
-        self.gnupgHome = "~/.gnupg"
+        self.gnupgHome = os.path.expanduser(os.path.join("~", ".gnupg"))
         self.gpg = GPG(gpgbinary=self.gpgbin, gnupghome=self.gnupgHome)
         
         unittest.TestCase.__init__(self, methodName)

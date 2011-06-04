@@ -22,6 +22,7 @@ import bencode
 import hashlib
 import gnupg
 import types
+import os
 from LRSignature.errors import UnknownKeyException
 
 class Sign_0_21(object):
@@ -30,7 +31,7 @@ class Sign_0_21(object):
         see: https://docs.google.com/document/d/191BTary350To_4JokBUFZLFRMOEfGYrl_EHE6QZxUr8/edit
     '''
 
-    def __init__(self, privateKeyID=None, passphrase=None, gnupgHome="~/.gnupg", gpgbin="/usr/local/bin/gpg", publicKeyLocations=[]):
+    def __init__(self, privateKeyID=None, passphrase=None, gnupgHome=os.path.expanduser(os.path.join("~", ".gnupg")), gpgbin="/usr/local/bin/gpg", publicKeyLocations=[]):
         '''
         Constructor
         '''

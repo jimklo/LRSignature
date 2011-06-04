@@ -20,7 +20,7 @@ Created on May 9, 2011
 from gnupg import GPG
 from LRSignature.sign.Sign import Sign_0_21
 from LRSignature import errors
-import types, re, copy
+import types, re, copy, os
 import cStringIO
 
 
@@ -30,7 +30,7 @@ class Verify_0_21(Sign_0_21):
     '''
 
 
-    def __init__(self, gpgbin="/usr/local/bin/gpg", gnupgHome="~/.gnupg"):
+    def __init__(self, gpgbin="/usr/local/bin/gpg", gnupgHome=os.path.expanduser(os.path.join("~", ".gnupg"))):
         '''
         Constructor
         '''

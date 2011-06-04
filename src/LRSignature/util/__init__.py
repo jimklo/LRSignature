@@ -21,6 +21,7 @@ Created on Apr 27, 2011
 import urllib2
 import re
 import gnupg
+import os
 
 
 def fetchkeys(url):
@@ -40,7 +41,7 @@ def fetchkeys(url):
         rawKeys.append(response[o.start():o.end()])
     return rawKeys
 
-def storekey(keydata, gnupghome="~/.gnupg", gpgbin="/usr/local/bin/gpg"):
+def storekey(keydata, gnupghome=os.path.expanduser(os.path.join("~", ".gnupg")), gpgbin="/usr/local/bin/gpg"):
     gpg = gnupg.GPG(gpgbinary=gpgbin, gnupghome=gnupghome)
     
     result = gpg.import_keys(keydata)
