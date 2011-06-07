@@ -67,8 +67,10 @@ class Sign_0_21(object):
                 return str(obj)
             elif isinstance(obj, types.BooleanType):
                 return str(obj).lower()
-            elif isinstance(obj, types.StringTypes):
-                return str(obj)
+            elif isinstance(obj, types.StringType):
+                return obj
+            elif isinstance(obj, types.UnicodeType):
+                return obj.encode('UTF-8')
             elif isinstance(obj, types.ListType):
                 nobj = []
                 for child in obj:
