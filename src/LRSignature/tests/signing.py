@@ -22,6 +22,7 @@ from gnupg import GPG
 from LRSignature.sign.Sign import Sign_0_21
 from LRSignature.errors import UnknownKeyException
 import types
+import sys
 
 
 class Test(unittest.TestCase):
@@ -33,6 +34,17 @@ class Test(unittest.TestCase):
         self.gpg = GPG(gpgbinary=self.gpgbin, gnupghome=self.gnupgHome)
         
         unittest.TestCase.__init__(self, methodName)
+        
+        self.testDataDir = None
+        configFile = os.path.join("config.cfg")
+        if os.path.exists(configFile):
+            config = json.load(file(configFile))
+            
+            if config.has_key("global"):
+                if config["global"].has_key("testdata") and os.path.exists(config["global"]["testdata"]):
+                    self.testDataDir = config["global"]["testdata"]
+        
+        
         
     def setUp(self):
         now = time.localtime()
