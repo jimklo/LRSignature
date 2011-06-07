@@ -21,7 +21,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='LRSignature',
-    version='0.1.1',
+    version='0.1.2',
     author='Jim Klo',
     author_email="jim.klo@sri.com",
     packages=find_packages(),

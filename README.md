@@ -87,6 +87,16 @@ Usage
 
 Versions
 ========
+0.1.2 - Bug Fix [PT #14231273](https://www.pivotaltracker.com/story/show/14231273)
+
+        * UTF-8 encoded envelopes failed to sign.
+         
+            - Unicode strings are now UTF-8 encoded before bencoding.
+        
+            
 0.1.1 - Minor Bug Fix
+
         * When gnupgHome is not defined, default option creates a directory named "~".
+        
+        
 0.1.0 - Initial Release
