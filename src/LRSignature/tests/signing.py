@@ -208,7 +208,28 @@ class Test(unittest.TestCase):
         sig = signed["digital_signature"]
         assert sig.has_key("signature")
         assert sig["signature"] != None and len(sig["signature"]) > 0
+    
+    def testSignUnicode(self):
+        if self.testDataDir == None:
+            print "Skipping test, test data directory not set.\n"
+            return
         
+        fileName = "2011-02-28Metadata1004.json"
+        unsigned = json.load(file(os.path.join(self.testDataDir, fileName)))
+        
+        arbitraryKeyLoc = self.sampleKeyLocations
+        
+        signer = Sign_0_21(self.goodkeyid, passphrase=self.goodpassphrase, publicKeyLocations=arbitraryKeyLoc)
+        signed = signer.sign(unsigned)
+        
+        assert signed.has_key("digital_signature")
+        
+        sig = signed["digital_signature"]
+        assert sig.has_key("signature")
+        assert sig["signature"] != None and len(sig["signature"]) > 0
+    
+        
+            
         
 
 
