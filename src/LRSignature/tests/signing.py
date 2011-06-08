@@ -17,13 +17,14 @@ Created on May 6, 2011
 
 @author: jklo
 '''
-import unittest, json, calendar, time, os
+import unittest, json, calendar, time, os, logging
 from gnupg import GPG
 from LRSignature.sign.Sign import Sign_0_21
 from LRSignature.errors import UnknownKeyException
 import types
 import sys
 
+log =  logging.getLogger(__name__)
 
 class Test(unittest.TestCase):
     '''Unit test cases for signing envelopes from the Learning Registry'''
@@ -211,11 +212,13 @@ class Test(unittest.TestCase):
     
     def testSignUnicode(self):
         if self.testDataDir == None:
-            print "Skipping test, test data directory not set.\n"
+            log.info("Skipping test, test data directory not set.")
             return
         
+        import codecs
+        
         fileName = "2011-02-28Metadata1004.json"
-        unsigned = json.load(file(os.path.join(self.testDataDir, fileName)))
+        unsigned = json.load(codecs.open(os.path.join(self.testDataDir, fileName), "r", "utf-8-sig"))
         
         arbitraryKeyLoc = self.sampleKeyLocations
         
@@ -227,7 +230,31 @@ class Test(unittest.TestCase):
         sig = signed["digital_signature"]
         assert sig.has_key("signature")
         assert sig["signature"] != None and len(sig["signature"]) > 0
-    
+        
+    def testSignLRTestData(self):
+        if self.testDataDir == None:
+            log.info("Skipping test, test data directory not set.")
+            return
+        
+        import codecs
+        
+        allfiles = os.listdir(self.testDataDir)
+        for fileName in allfiles:
+            log.info("Trying to sign %s" % (fileName, ))
+            
+            unsigned = json.load(codecs.open(os.path.join(self.testDataDir, fileName), "r", "utf-8-sig"))
+        
+            arbitraryKeyLoc = self.sampleKeyLocations
+            
+            signer = Sign_0_21(self.goodkeyid, passphrase=self.goodpassphrase, publicKeyLocations=arbitraryKeyLoc)
+            signed = signer.sign(unsigned)
+            
+            assert signed.has_key("digital_signature")
+            
+            sig = signed["digital_signature"]
+            assert sig.has_key("signature")
+            assert sig["signature"] != None and len(sig["signature"]) > 0
+        
         
             
         

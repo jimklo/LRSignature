@@ -27,6 +27,8 @@ from LRSignature import errors
 
 #logging.basicConfig(level=logging.DEBUG,format="%(asctime)s %(levelname)-5s %(name)-10s %(threadName)-10s %(message)s")
 
+log =  logging.getLogger(__name__)
+
 
 class Test(unittest.TestCase):
     '''Unit tests for validating signed envelopes from the Learning Registry''' 
@@ -67,6 +69,15 @@ class Test(unittest.TestCase):
         self.gpgbin="/usr/local/bin/gpg"
         self.gnupgHome = os.path.expanduser(os.path.join("~", ".gnupg"))
         self.gpg = GPG(gpgbinary=self.gpgbin, gnupghome=self.gnupgHome)
+        
+        self.testDataDir = None
+        configFile = os.path.join("config.cfg")
+        if os.path.exists(configFile):
+            config = json.load(file(configFile))
+            
+            if config.has_key("global"):
+                if config["global"].has_key("testdata") and os.path.exists(config["global"]["testdata"]):
+                    self.testDataDir = config["global"]["testdata"]
         
         unittest.TestCase.__init__(self, methodName)
 
@@ -309,6 +320,33 @@ class Test(unittest.TestCase):
         verified = verifytool.verify(alt_signed)
         assert verified == False, "verification failed, corrupted signature block verified as good"
         
+    def testSignLRTestData(self):
+        '''Test using LR Test Data, if available'''
+        if self.testDataDir == None:
+            log.info("Skipping test, test data directory not set.")
+            return
+        
+        import codecs
+        
+        signtool = Sign_0_21(privateKeyID=self.privateKey.fingerprint, passphrase=self.genericPassphrase, gnupgHome=self.gnupgHome, gpgbin=self.gpgbin, publicKeyLocations=self.sampleKeyLocations)
+        verifytool = Verify_0_21(gpgbin=self.gpgbin, gnupgHome=self.gnupgHome)
+
+        allfiles = os.listdir(self.testDataDir)
+        for fileName in allfiles:
+            log.info("Trying to sign %s" % (fileName, ))
+            
+            unsigned = json.load(codecs.open(os.path.join(self.testDataDir, fileName), "r", "utf-8-sig"))
+            
+            signed = signtool.sign(unsigned)
+            
+            assert signed.has_key("digital_signature"), "missing digital_signature"
+            
+            verified = verifytool.verify(signed)
+            assert verified == True, "baseline validation failed"
+        
+        
+        
+            
         
     
 
