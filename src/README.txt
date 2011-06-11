@@ -1,9 +1,43 @@
-================================================
-LRSignature - Learning Registry Signature module
-================================================
+Learning Registry Envelope Signing and Validation Module
+=========================================================
 
-The Learning Registry module allows you to sign and minimally validate 
-Learning Registry envelopes::
+This is a Python module that may be used to sign, verify, and retrieve
+PGP keys for Learning Registry envelopes.
+
+
+License & Copyright
+===================
+
+Copyright 2011 SRI International
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+
+
+Installation
+============
+
+1. Install [GNU Privacy Guard](http://www.gnupg.org/)
+
+2. Download the latest release from the [src/dist](./LRSignature/tree/master/src/dist)
+
+3. Install with pip
+        
+        pip install LRSignature-<version>.tar.gz
+        
+4. There is no step four! Done.
+
+
+Usage
+=====
 
     #!/usr/bin/env python
 
@@ -49,7 +83,8 @@ Learning Registry envelopes::
     verifytool = Verify_0_21()
     verified = verifytool.verify(signed)
     assert verified == True
-
+    
+    
 LRSignature.util module contains functionality to fetch and store public keys into the 
 local PGP keyring.
 
@@ -65,7 +100,31 @@ External:
 Other Python Dependencies:
 
 - Python-gnupg: http://pypi.python.org/pypi/python-gnupg/
-- BitTorrent-bencode: http://pypi.python.org/pypi/BitTorrent-bencode/5.0.8.1
 
 
+Versions
+========
+0.1.3 - Bug Fix [PT #14231273](https://www.pivotaltracker.com/story/show/14231273)
 
+        * Bittorrent-python does not encode unicode strings.  Repackaged LRSignature
+          with modified Bittorrent-python package which can handle UTF-8 strings.
+        
+        * License for Bittorrent-python code is [Bittorrent Open Source License](http://www2.bittorrent.com/legal/bittorrent-open-source-license)
+        
+        * Removed external dependency for Bittorrent-python module.
+        
+        * Reverted changes from 0.1.2.
+
+0.1.2 - Bug Fix [PT #14231273](https://www.pivotaltracker.com/story/show/14231273)
+
+        * UTF-8 encoded envelopes failed to sign.
+         
+            - Unicode strings are now UTF-8 encoded before bencoding.
+        
+            
+0.1.1 - Minor Bug Fix
+
+        * When gnupgHome is not defined, default option creates a directory named "~".
+        
+        
+0.1.0 - Initial Release

@@ -84,9 +84,37 @@ Usage
     verified = verifytool.verify(signed)
     assert verified == True
     
+    
+LRSignature.util module contains functionality to fetch and store public keys into the 
+local PGP keyring.
+
+
+Dependencies
+============
+
+External:
+
+- GnuPG: http://www.gnupg.org/
+
+
+Other Python Dependencies:
+
+- Python-gnupg: http://pypi.python.org/pypi/python-gnupg/
+
 
 Versions
 ========
+0.1.3 - Bug Fix [PT #14231273](https://www.pivotaltracker.com/story/show/14231273)
+
+        * Bittorrent-python does not encode unicode strings.  Repackaged LRSignature
+          with modified Bittorrent-python package which can handle UTF-8 strings.
+        
+        * License for Bittorrent-python code is [Bittorrent Open Source License](http://www2.bittorrent.com/legal/bittorrent-open-source-license)
+        
+        * Removed external dependency for Bittorrent-python module.
+        
+        * Reverted changes from 0.1.2.
+
 0.1.2 - Bug Fix [PT #14231273](https://www.pivotaltracker.com/story/show/14231273)
 
         * UTF-8 encoded envelopes failed to sign.

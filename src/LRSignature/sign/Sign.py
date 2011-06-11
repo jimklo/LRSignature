@@ -18,12 +18,12 @@ Created on Apr 27, 2011
 @author: jklo
 '''
 import re
-import bencode
 import hashlib
 import gnupg
 import types
 import os
 from LRSignature.errors import UnknownKeyException
+from LRSignature.bencode import bencode
 
 class Sign_0_21(object):
     '''
@@ -70,7 +70,7 @@ class Sign_0_21(object):
             elif isinstance(obj, types.StringType):
                 return obj
             elif isinstance(obj, types.UnicodeType):
-                return obj.encode('UTF-8')
+                return obj
             elif isinstance(obj, types.ListType):
                 nobj = []
                 for child in obj:
@@ -93,11 +93,11 @@ class Sign_0_21(object):
     
     
     def _buildCanonicalString(self, envelope = {}):
-        encoded = bencode.bencode(envelope)
+        encoded = bencode(envelope)
         return encoded
     
     def _hash(self, msg):
-        hashedDigest = hashlib.sha256(msg).hexdigest()
+        hashedDigest = hashlib.sha256(msg.encode("utf-8")).hexdigest()
         return hashedDigest
     
     def get_message(self, envelope):

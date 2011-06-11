@@ -21,12 +21,11 @@ from setuptools import setup, find_packages
 
 setup(
     name='LRSignature',
-    version='0.1.2',
+    version='0.1.3',
     author='Jim Klo',
     author_email="jim.klo@sri.com",
     packages=find_packages(),
     license='LICENSE.txt',
     long_description=open('README.txt').read(),
-    install_requires = ["BitTorrent-bencode>=5.0.8.1",
-                        "python-gnupg>=0.2.7",]
+    install_requires = ["python-gnupg>=0.2.7",]
 )
