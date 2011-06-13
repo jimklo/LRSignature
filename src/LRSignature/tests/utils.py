@@ -19,7 +19,7 @@ Created on May 11, 2011
 '''
 import unittest, os, errno
 import gnupg
-from LRSignature import util
+from LRSignature import util as util
 
 class Test(unittest.TestCase):
     '''Unit test cases for testing utility methods'''

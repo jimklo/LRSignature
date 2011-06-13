@@ -19,7 +19,7 @@ Created on May 9, 2011
 '''
 from gnupg import GPG
 from LRSignature.sign.Sign import Sign_0_21
-from LRSignature import errors
+from LRSignature.errors import *
 import types, re, copy, os
 import cStringIO
 
@@ -47,15 +47,15 @@ class Verify_0_21(Sign_0_21):
                 if sigInfo.has_key("signing_method"): 
                     if sigInfo["signing_method"] == self.signatureMethod:
                         if not sigInfo.has_key("signature") or sigInfo["signature"] == None or len(sigInfo["signature"]) == 0:
-                            raise errors.BadSignatureFormat(errors.MISSING_SIGNATURE)
+                            raise BadSignatureFormat(MISSING_SIGNATURE)
                         elif not (sigInfo.has_key("key_location") and isinstance(sigInfo["key_location"], types.ListType) and len(sigInfo["key_location"]) > 0 ):
-                            raise errors.BadSignatureFormat(errors.MISSING_KEY_LOCATION)
+                            raise BadSignatureFormat(MISSING_KEY_LOCATION)
                         elif sigInfo.has_key("key_owner") and not isinstance(sigInfo["key_owner"], types.StringTypes):
-                            raise errors.BadSignatureFormat(errors.BAD_KEY_OWNER)
+                            raise BadSignatureFormat(BAD_KEY_OWNER)
                     else:
-                        raise errors.UnsupportedSignatureAlgorithm(sigInfo["signing_method"])
+                        raise UnsupportedSignatureAlgorithm(sigInfo["signing_method"])
                 else:
-                    raise errors.UnsupportedSignatureAlgorithm(None)
+                    raise UnsupportedSignatureAlgorithm(None)
             
             
             return sigInfo
@@ -120,9 +120,12 @@ class Verify_0_21(Sign_0_21):
                 else:
                     return False
             elif verified.valid == False and verified.key_id == None:
-                raise errors.MissingPublicKey(message=verified.data)
+                raise MissingPublicKey(message=verified.data)
             else:
                 return False
         return None
-            
+
+if __name__ == "__main__":
+    verify = Verify_0_21()
+    pass
         

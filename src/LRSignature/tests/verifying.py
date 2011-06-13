@@ -23,7 +23,7 @@ from gnupg import GPG
 import time
 from LRSignature.sign.Sign import Sign_0_21
 from LRSignature.verify.Verify import Verify_0_21
-from LRSignature import errors
+from LRSignature import errors as errors
 
 #logging.basicConfig(level=logging.DEBUG,format="%(asctime)s %(levelname)-5s %(name)-10s %(threadName)-10s %(message)s")
 

@@ -104,6 +104,13 @@ Other Python Dependencies:
 
 Versions
 ========
+
+0.1.4 - Minor enhancement.
+ 
+        * Updated __init__.py files to import the right submodules
+          so package visibility is not obfuscated. No functionality changes.
+        
+
 0.1.3 - Bug Fix [PT #14231273](https://www.pivotaltracker.com/story/show/14231273)
 
         * Bittorrent-python does not encode unicode strings.  Repackaged LRSignature
