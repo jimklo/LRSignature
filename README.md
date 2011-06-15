@@ -105,6 +105,12 @@ Other Python Dependencies:
 Versions
 ========
 
+0.1.5 - New Feature.
+ 
+        * Ability to use LRSignature via command line to pipe envelopes from STDIN and output to STDOUT or publish to specified publish service URL:
+        
+            python -m LRSignature --help
+
 0.1.4 - Minor enhancement.
  
         * Updated __init__.py files to import the right submodules
