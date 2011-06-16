@@ -105,6 +105,14 @@ Other Python Dependencies:
 Versions
 ========
 
+0.1.6 - New Feature.
+
+        * Enhanced command line usage.
+            
+            - Added envelope signature validation
+            
+            - Command line arguments modified to have modes, sign & verify
+
 0.1.5 - New Feature.
  
         * Ability to use LRSignature via command line to pipe envelopes from STDIN and output to STDOUT or publish to specified publish service URL:

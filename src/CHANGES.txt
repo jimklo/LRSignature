@@ -1,3 +1,4 @@
+v0.1.6, 2011-06-16 -- Enhanced commmand line module usage, added validation, new arglist NOT backwards compatible see: python -m LRSignature -h
 v0.1.5, 2011-06-13 -- Added commmand line module usage see: python -m LRSignature -h
 v0.1.4, 2011-06-13 -- Minor enhancement to fix module visibility. No functionality changes.
 v0.1.3, 2011-06-10 -- Bug fix to bencoding library not supporting unicode strings, bundled with modified bencode package from Bittorrent, LICENSE for these files only: http://www2.bittorrent.com/legal/bittorrent-open-source-license.

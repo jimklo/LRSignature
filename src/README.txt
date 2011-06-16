@@ -105,6 +105,14 @@ Other Python Dependencies:
 Versions
 ========
 
+0.1.6 - New Feature.
+
+        * Enhanced command line usage.
+            
+            - Added envelope signature validation
+            
+            - Command line arguments modified to have modes, sign & verify
+
 0.1.4 - Minor enhancement. 
         
         * Updated __init__.py files to import the right submodules
