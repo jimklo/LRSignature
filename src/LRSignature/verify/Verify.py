@@ -20,7 +20,7 @@ Created on May 9, 2011
 from gnupg import GPG
 from LRSignature.sign.Sign import Sign_0_21
 from LRSignature.errors import *
-import types, re, copy, os
+import types, re, copy, os, sys
 import cStringIO
 
 
@@ -88,8 +88,11 @@ class Verify_0_21(Sign_0_21):
                 msgOnly += line
             return msgOnly
         
-        sig = re.split("\r\n|\r|\n", signatureBlock, flags=re.MULTILINE)
-        
+        if sys.version_info > (2, 7): 
+            sig = re.split("\r\n|\r|\n", signatureBlock, flags=re.MULTILINE)
+        else:
+            sig = re.split("\r\n|\r|\n", signatureBlock)
+            
         hash = removeTail(removeHead(sig))
         
         return hash
