@@ -16,4 +16,4 @@ limitations under the License.
 
 import bencode, sign, tests, util, verify, errors
 
-__all__ = ["bencode", "sign", "tests", "util", "verify", "errors"]
+__all__ = ["bencode", "sign", "tests", "util", "verify", "errors", "cmd"]

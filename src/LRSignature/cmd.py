@@ -147,17 +147,21 @@ class PipeTool(object):
         sign_parser.add_argument('--key', help='PGP Private Key ID', required=True)
         sign_parser.add_argument('--key-location', help='Location the PGP Public Key can be downloaded from', required=True, action="append")
         sign_parser.add_argument('--passphrase', help='Passphrase for PGP Private Key', default=None)
-        sign_parser.add_argument('--lr-test-data', help='Publish as lr test data, default is True', default="True")
+        sign_parser.add_argument('--lr-test-data', help='Publish as lr test data, default is True', default="True")       
+        sign_parser.add_argument('--publish-url', help='URL of publish service on node to send envelopes, default STDOUT', default=None)
+        sign_parser.add_argument('--publish-chunksize', help='publish chunksize, default 25', type=int, default=25)
+        sign_parser.add_argument('--publish-timeout', help='publish timeout in seconds, default 300', type=int, default=300)
+        sign_parser.add_argument('--gpgbin', help='Path to GPG binary')
+        sign_parser.add_argument('--gnupghome', help='Path to GPG home directory')
         sign_parser.set_defaults(mode="sign")
         
         verify_parser = subparsers.add_parser('verify') 
         verify_parser.set_defaults(mode="verify")
+        verify_parser.add_argument('--gpgbin', help='Path to GPG binary')
+        verify_parser.add_argument('--gnupghome', help='Path to GPG home directory')
         
         parser.add_argument('--gpgbin', help='Path to GPG binary', default="gpg")
         parser.add_argument('--gnupghome', help='Path to GPG home directory', default="~/.gnupg")
-        parser.add_argument('--publish-url', help='URL of publish service on node to send envelopes, default STDOUT', default=None)
-        parser.add_argument('--publish-chunksize', help='publish chunksize, default 25', type=int, default=25)
-        parser.add_argument('--publish-timeout', help='publish timeout in seconds, default 300', type=int, default=300)
     #        parser.add_argument('--config', help='JSON Configuration file', default=None, type=argparse.FileType('r'))
         args = parser.parse_args()#            
         
