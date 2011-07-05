@@ -1,3 +1,4 @@
+v0.1.7, 2011-07-01 -- Bug fix for Python < v2.7 and added some flexibility to command line usage
 v0.1.6, 2011-06-16 -- Enhanced commmand line module usage, added validation, new arglist NOT backwards compatible see: python -m LRSignature -h
 v0.1.5, 2011-06-13 -- Added commmand line module usage see: python -m LRSignature -h
 v0.1.4, 2011-06-13 -- Minor enhancement to fix module visibility. No functionality changes.

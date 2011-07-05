@@ -21,13 +21,13 @@ from setuptools import setup, find_packages
 
 setup(
     name='LRSignature',
-    version='0.1.6',
+    version='0.1.7',
     author='Jim Klo',
     author_email="jim.klo@sri.com",
     url = "https://github.com/jimklo/LRSignature",
     description='Learning Registry resource data digital signature management',
     packages=find_packages(),
     long_description=open('README.txt').read(),
-    install_requires = ["python-gnupg>=0.2.7",],
+    install_requires = ["argparse","python-gnupg>=0.2.7",],
     license='Apache 2.0 License',
 )
