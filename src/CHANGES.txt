@@ -1,3 +1,4 @@
+v0.1.8, 2011-09-20 -- Modified to handle new variant of Basic Harvest getrecord and listrecords response. Additional error handling.
 v0.1.7, 2011-07-01 -- Bug fix for Python < v2.7 and added some flexibility to command line usage
 v0.1.6, 2011-06-16 -- Enhanced commmand line module usage, added validation, new arglist NOT backwards compatible see: python -m LRSignature -h
 v0.1.5, 2011-06-13 -- Added commmand line module usage see: python -m LRSignature -h

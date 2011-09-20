@@ -105,6 +105,8 @@ Other Python Dependencies:
 Versions
 ========
 
+0.1.8 - Modified to handle new variant of Basic Harvest getrecord and listrecords response. Additional error handling.
+
 0.1.7 - Bug fix for Python versions < 2.7 and added some flexibility to command line use.
 
 0.1.6 - New Feature.

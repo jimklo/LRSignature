@@ -110,6 +110,22 @@ class PipeTool(object):
             except errors.MissingPublicKey:
                 result["verified"] = False
                 result["error"] = "No available public key to validate."
+                
+        except errors.BadSignatureFormat as e:
+            result["verified"] = False
+            result["error"] = e.message
+        
+        except errors.UnknownKeyException as e:
+            result["verified"] = False
+            result["error"] = e.message
+        
+        except errors.UnsupportedSignatureAlgorithm as e:
+            result["verified"] = False
+            result["error"] = e.message
+        
+        except Exception as e:
+            result["verified"] = False
+            result["error"] = e.message
         
         return result
 
@@ -170,11 +186,40 @@ class PipeTool(object):
 
     def parseInput(self, input=None):
         import json
- 
+        
+        def getHarvestRecords(obj):
+            def harvestGetRecordGenerator(results):
+                for item in results:
+                    if "resource_data" in item:
+                        yield item["resource_data"]
+                        
+            def harvestListRecordsGenerator(results):
+                for item in results:
+                    if "record" in item and "resource_data" in item["record"]:
+                        yield item["record"]["resource_data"]
+            
+            try:
+                root = obj["getrecord"]["record"]
+                return harvestGetRecordGenerator(root)
+            except:
+                pass
+            
+            try:
+                root = obj["listrecords"]
+                return harvestListRecordsGenerator(root)
+            except:
+                pass
+            
+            return None
+                
+        
         if input is not None:
             try:
                 jsobject = json.loads(input)
                 
+                records = getHarvestRecords(jsobject)
+                if records != None:
+                    return records
                 if isinstance(jsobject, types.DictionaryType):
                     if jsobject.has_key("documents") and isinstance(jsobject["documents"], types.ListType):
                         return jsobject["documents"]
