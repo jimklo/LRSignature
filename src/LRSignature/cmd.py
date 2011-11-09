@@ -141,7 +141,7 @@ class PipeTool(object):
         req = urllib2.Request(self.args.publish_url, headers={"Content-type": "application/json; charset=utf-8"})
         if self.args.publish_username and self.args.publish_password:
             import base64
-            base64string = base64.encodestring('%s:%s' % (self.args.publish_username, self.args.publish_password)).replace('\n', '')
+            base64string = base64.encodestring('%s:%s' % (self.args.publish_username, self.args.publish_password))[:-1]
             req.add_header("Authorization", "Basic %s" % base64string)
         status = []
         for chunk in self._chunkList(envelopes, self.args.publish_chunksize):

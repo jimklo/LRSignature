@@ -126,10 +126,15 @@ class Test(unittest.TestCase):
         pass
         
     def testMissingPrivateKey(self):
-        with self.assertRaises(UnknownKeyException) as caught:
-            sign = Sign_0_21(self.badkeyid)
         
-        assert caught.exception.keyid == self.badkeyid
+        def missingKey():
+            try:
+                sign = Sign_0_21(self.badkeyid)
+            except UnknownKeyException as e:
+                assert e.keyid == self.badkeyid, "keyid in exception doesn't match key passed to sign."
+                raise e
+            
+        self.assertRaises(UnknownKeyException, missingKey)
 
     def testPresentPrivateKey(self):
         sign = Sign_0_21(self.goodkeyid)
