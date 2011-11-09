@@ -104,6 +104,8 @@ Other Python Dependencies:
 
 Versions
 ========
+0.1.10 - Fixed an issue with PipeTool not honoring the --lr-test-data argument.
+
 0.1.9 - Added contribution from ISKME that adds basic HTTP Authentication for publish.
 
 0.1.8 - Modified to handle new variant of Basic Harvest getrecord and listrecords response. Additional error handling.

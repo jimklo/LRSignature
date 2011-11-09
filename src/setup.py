@@ -21,7 +21,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='LRSignature',
-    version='0.1.9',
+    version='0.1.10',
     author='Jim Klo',
     author_email="jim.klo@sri.com",
     url = "https://github.com/jimklo/LRSignature",

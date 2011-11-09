@@ -7,8 +7,9 @@ import types
 import sys
 
 class InvalidJSONError(ValueError):
-    def __init__(self, **kwargs):
-        ValueError.__init__(self, **kwargs)
+    def __init__(self, msg):
+        ValueError.__init__(self)
+        self.message = msg
 
 
 class PipeTool(object):
@@ -34,7 +35,9 @@ class PipeTool(object):
                               gnupgHome=self.args.gnupghome,
                               gpgbin=self.args.gpgbin, publicKeyLocations=self.args.key_location)
 
-            signedList = self.signEnvelopes(envelopeList, is_test_data=True)
+            is_test_data_opt = self.args.lr_test_data.lower() in ["true", "yes", "t", "y"]
+
+            signedList = self.signEnvelopes(envelopeList, is_test_data=is_test_data_opt)
 
             if self.args.publish_url != None:
                 self.publishEnvelopes(signedList)
@@ -234,7 +237,7 @@ class PipeTool(object):
                     return jsobject
 
             except Exception, e:
-                raise InvalidJSONError(e)
+                raise InvalidJSONError(e.message)
         return None
 
 
