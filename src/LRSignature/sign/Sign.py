@@ -25,13 +25,18 @@ import os
 from LRSignature.errors import UnknownKeyException
 from LRSignature.bencode import bencode
 
+def _cmp_version(version1, version2):
+    def normalize(v):
+        return [int(x) for x in re.sub(r'(\.0+)*$','', v).split(".")]
+    return cmp(normalize(version1), normalize(version2))
+
 class Sign_0_21(object):
     '''
     Class for signing LR envelopes following version 0.21.0 of the LR Specification:
         see: https://docs.google.com/document/d/191BTary350To_4JokBUFZLFRMOEfGYrl_EHE6QZxUr8/edit
     '''
 
-    def __init__(self, privateKeyID=None, passphrase=None, gnupgHome=os.path.expanduser(os.path.join("~", ".gnupg")), gpgbin="/usr/local/bin/gpg", publicKeyLocations=[]):
+    def __init__(self, privateKeyID=None, passphrase=None, gnupgHome=os.path.expanduser(os.path.join("~", ".gnupg")), gpgbin="/usr/local/bin/gpg", publicKeyLocations=[], sign_everything=True):
         '''
         Constructor
         '''
@@ -41,6 +46,8 @@ class Sign_0_21(object):
         self.gnupgHome = gnupgHome
         self.gpgbin = gpgbin
         self.publicKeyLocations = publicKeyLocations
+        self.min_doc_version = "0.21.0"
+        self.sign_everything = sign_everything
         
         self.gpg = gnupg.GPG(gnupghome=self.gnupgHome, gpgbinary=self.gpgbin)
         
@@ -59,7 +66,10 @@ class Sign_0_21(object):
             
             if privateKeyAvailable == False:
                 raise UnknownKeyException(self.privateKeyID)
-        
+    
+    def _version_check(self, doc):
+        return _cmp_version(doc["doc_version"], self.min_doc_version) >= 0
+
     def _bnormal(self, obj = {}):
             if isinstance(obj, types.NoneType):
                 return "null"
@@ -146,18 +156,19 @@ class Sign_0_21(object):
         '''
         Hashes and Signs a LR envelope according to the version 2.0 LR Specification
         '''
-        msg = self.get_message(envelope)
-        
-        signPrefs = {
-                     "keyid": self.privateKeyID,
-                     "passphrase": self.passphrase,
-                     "clearsign": True 
-                }
-        
-        result = self.gpg.sign(msg, **signPrefs)
-        
-        
-        envelope["digital_signature"] = self._get_sig_block(result.data)
+        if self._version_check(envelope) or self.sign_everything:
+            msg = self.get_message(envelope)
+            
+            signPrefs = {
+                         "keyid": self.privateKeyID,
+                         "passphrase": self.passphrase,
+                         "clearsign": True 
+                    }
+            
+            result = self.gpg.sign(msg, **signPrefs)
+            
+            
+            envelope["digital_signature"] = self._get_sig_block(result.data)
         
         return envelope
         
