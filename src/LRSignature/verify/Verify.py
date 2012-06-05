@@ -23,7 +23,6 @@ from LRSignature.errors import *
 import types, re, copy, os, sys
 import cStringIO
 
-
 class Verify_0_21(Sign_0_21):
     '''
     classdocs
@@ -114,6 +113,7 @@ class Verify_0_21(Sign_0_21):
         sigInfo = self._getSignatureInfo(envelope)
         
         if sigInfo != None:
+
             verified = self.gpg.verify(sigInfo["signature"])
             if verified.valid == True:
                 verifiedHash = self._extractHashFromSignature(sigInfo["signature"])
@@ -122,8 +122,8 @@ class Verify_0_21(Sign_0_21):
                     return True
                 else:
                     return False
-            elif verified.valid == False and verified.key_id == None:
-                raise MissingPublicKey(message=verified.data)
+            elif verified.valid == False and verified.status == 'no public key':
+                raise MissingPublicKey(message=verified.data, keyid=verified.key_id)
             else:
                 return False
         return None
