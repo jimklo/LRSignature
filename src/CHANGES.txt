@@ -1,4 +1,5 @@
-v0.1.10, 2011-11-08 - Fixed an issue with PipeTool not honoring the --lr-test-data argument.
+v0.1.11, 2012-06-05 -- Added new signing feature to skip signing invalid doc versions. Bug fixes for signature validation to support latest gnupg version.
+v0.1.10, 2011-11-08 -- Fixed an issue with PipeTool not honoring the --lr-test-data argument.
 v0.1.9, 2011-11-08 -- Added contribution from ISKME that adds basic HTTP Authentication for publish.
 v0.1.8, 2011-09-20 -- Modified to handle new variant of Basic Harvest getrecord and listrecords response. Additional error handling.
 v0.1.7, 2011-07-01 -- Bug fix for Python < v2.7 and added some flexibility to command line usage
