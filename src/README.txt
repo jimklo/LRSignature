@@ -104,6 +104,8 @@ Other Python Dependencies:
 
 Versions
 ========
+0.1.12 - No changes; modified dependency version number for python-gnupgp
+
 0.1.11 - New Features and Bug Fixes:
         
         * _NEW_ Added a feature to signing to skip signing envelopes with a doc_version older that 0.21.0.
