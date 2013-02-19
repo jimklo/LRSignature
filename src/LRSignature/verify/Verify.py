@@ -96,7 +96,36 @@ class Verify_0_21(Sign_0_21):
         
         return hash
         
-    
+    def get_and_verify(self, envelope):
+        '''
+        Get the OpenPGP validation info and Verify integrity of the provided envelope.
+        
+        Returns: 
+            None if no signature block exists
+            gnupg.Verify object if signature & integrity check pass        
+        Raises:
+            BadSignatureFormat if signature & integrity check do not pass
+            MissingPublicKey if public key for signed document is missing
+        '''
+        
+        sigInfo = self._getSignatureInfo(envelope)
+        
+        if sigInfo != None:
+
+            verified = self.gpg.verify(sigInfo["signature"])
+            if verified.valid == True:
+                verifiedHash = self._extractHashFromSignature(sigInfo["signature"])
+                
+                if self.get_message(envelope) == verifiedHash:
+                    return verified
+                else:
+                    raise BadSignatureFormat("valid signature, envelope hash bad match.")
+            elif verified.valid == False and verified.status == 'no public key':
+                raise MissingPublicKey(message=verified.data, keyid=verified.key_id)
+            else:
+                raise BadSignatureFormat("invalid signature")
+        return None
+
     def verify(self, envelope):
         '''
         Verify integrity of the provided envelope.
@@ -107,7 +136,7 @@ class Verify_0_21(Sign_0_21):
             False if signature & integrity check do not pass
         
         Raises:
-            
+            MissingPublicKey if public key for signed document is missing
         '''
         
         sigInfo = self._getSignatureInfo(envelope)

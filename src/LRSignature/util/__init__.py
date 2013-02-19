@@ -34,7 +34,7 @@ def fetchkeys(url):
     
     response = res.read()
     
-    obj = re.finditer("((?!<.*)(-----BEGIN PGP PUBLIC KEY BLOCK-----\\n[^-]+-----END PGP PUBLIC KEY BLOCK-----))+", response, re.MULTILINE | re.DOTALL)
+    obj = re.finditer("((?!<.*)(-----BEGIN PGP PUBLIC KEY BLOCK-----(\\r)?\\n[^-]+-----END PGP PUBLIC KEY BLOCK-----))+", response, re.MULTILINE | re.DOTALL)
     
     rawKeys = []
     for o in obj:
