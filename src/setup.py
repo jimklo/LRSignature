@@ -29,5 +29,5 @@ setup(
     packages=find_packages(),
     long_description=open('README.txt').read(),
     install_requires = ["argparse","python-gnupg>=0.3.0"],
-    license='Apache 2.0 License',
+    license='Apache 2.0 License'
 )

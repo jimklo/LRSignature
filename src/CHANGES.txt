@@ -1,3 +1,4 @@
+v0.1.13, 2013-02-19 -- Modified fetchkey to extract Windows linefeed terminated keys, and exposed a new function in Verify that returns the pgp verification info after signature verification.
 v0.1.12, 2012-09-05 -- Changed python-gnupg dependency version.
 v0.1.11, 2012-06-05 -- Added new signing feature to skip signing invalid doc versions. Bug fixes for signature validation to support latest gnupg version.
 v0.1.10, 2011-11-08 -- Fixed an issue with PipeTool not honoring the --lr-test-data argument.
