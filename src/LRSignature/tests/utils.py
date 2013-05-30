@@ -44,8 +44,8 @@ class Test(unittest.TestCase):
             pass
 
     def setUp(self):
-        self.gnupghome = "./testhome"
-        self.gpgbin = '/usr/local/bin/gpg'
+        self.gnupghome =  os.path.expanduser(os.path.abspath(os.path.join("..", "gnupg_home")))
+        self.gpgbin = 'gpg'
         
         self.rm_rf(self.gnupghome)
         self.mkdir_p(self.gnupghome)

@@ -28,6 +28,7 @@ setup(
     description='Learning Registry resource data digital signature management',
     packages=find_packages(),
     long_description=open('README.txt').read(),
-    install_requires = ["argparse","python-gnupg>=0.3.0"],
+    install_requires = ["argparse","python-gnupg>=0.3.0",'nose==1.2.0'],
+    test_suite = 'nose.collector',
     license='Apache 2.0 License'
 )

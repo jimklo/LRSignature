@@ -66,11 +66,13 @@ class Test(unittest.TestCase):
                                    "http://example2.com/mykey"
                                    ]
         
-        self.gpgbin="/usr/local/bin/gpg"
-        self.gnupgHome = os.path.expanduser(os.path.join("~", ".gnupg"))
-        self.gpg = GPG(gpgbinary=self.gpgbin, gnupghome=self.gnupgHome)
+        self.gpgbin="gpg"
+        self.gnupgHome = os.path.expanduser(os.path.abspath(os.path.join("..", "gnupg_home")))
+        self.gpg = None
         
         self.testDataDir = None
+        self.testDataUnicode = None
+
         configFile = os.path.join("config.cfg")
         if os.path.exists(configFile):
             config = json.load(file(configFile))
@@ -78,6 +80,9 @@ class Test(unittest.TestCase):
             if config.has_key("global"):
                 if config["global"].has_key("testdata") and os.path.exists(config["global"]["testdata"]):
                     self.testDataDir = config["global"]["testdata"]
+
+                if config["global"].has_key("testdata_unicode") and os.path.exists(config["global"]["testdata_unicode"]):
+                    self.testDataUnicode = config["global"]["testdata_unicode"]
         
         unittest.TestCase.__init__(self, methodName)
 
@@ -87,6 +92,23 @@ class Test(unittest.TestCase):
         now = time.localtime()
         now = calendar.timegm(now)
         
+
+        try:
+            for root, dirs, files in os.walk(self.gnupgHome):
+                for filename in files:
+                    try:
+                        os.unlink(os.path.join(root, filename))
+                    except:
+                        pass
+                os.removedirs( root )
+        except:
+            pass
+
+        os.makedirs(self.gnupgHome)
+
+
+        self.gpg = GPG(gpgbinary=self.gpgbin, gnupghome=self.gnupgHome)
+
         
         self.privateEmail = "privateTest-{0}@learningregistry.org".format(now)
         self.privateEmail2 = "privateTest2-{0}@learningregistry.org".format(now)
@@ -332,17 +354,19 @@ class Test(unittest.TestCase):
         verifytool = Verify_0_21(gpgbin=self.gpgbin, gnupgHome=self.gnupgHome)
 
         allfiles = os.listdir(self.testDataDir)
-        for fileName in allfiles:
-            log.info("Trying to sign %s" % (fileName, ))
-            
-            unsigned = json.load(codecs.open(os.path.join(self.testDataDir, fileName), "r", "utf-8-sig"))
-            
-            signed = signtool.sign(unsigned)
-            
-            assert signed.has_key("digital_signature"), "missing digital_signature"
-            
-            verified = verifytool.verify(signed)
-            assert verified == True, "baseline validation failed"
+        for root, dirs, files in os.walk(self.testDataDir):
+
+            for fileName in files:
+                log.info("Trying to sign %s" % (fileName, ))
+                
+                unsigned = json.load(codecs.open(os.path.join(root, fileName), "r", "utf-8-sig"))
+                
+                signed = signtool.sign(unsigned)
+                
+                assert signed.has_key("digital_signature"), "missing digital_signature"
+                
+                verified = verifytool.verify(signed)
+                assert verified == True, "baseline validation failed"
         
         
         
