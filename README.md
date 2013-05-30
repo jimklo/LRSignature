@@ -39,55 +39,5 @@ Other Python Dependencies:
 
 Versions
 ========
-0.1.10 - Fixed an issue with PipeTool not honoring the --lr-test-data argument.
 
-0.1.9 - Added contribution from ISKME that adds basic HTTP Authentication for publish.
-
-0.1.8 - Modified to handle new variant of Basic Harvest getrecord and listrecords response. Additional error handling.
-
-0.1.7 - Bug fix for Python versions < 2.7 and added some flexibility to command line use.
-
-0.1.6 - New Feature.
-
-        * Enhanced command line usage.
-            
-            - Added envelope signature validation
-            
-            - Command line arguments modified to have modes, sign & verify
-
-0.1.5 - New Feature.
- 
-        * Ability to use LRSignature via command line to pipe envelopes from STDIN and output to STDOUT or publish to specified publish service URL:
-        
-            python -m LRSignature --help
-
-0.1.4 - Minor enhancement.
- 
-        * Updated __init__.py files to import the right submodules
-          so package visibility is not obfuscated. No functionality changes.
-        
-
-0.1.3 - Bug Fix [PT #14231273](https://www.pivotaltracker.com/story/show/14231273)
-
-        * Bittorrent-python does not encode unicode strings.  Repackaged LRSignature
-          with modified Bittorrent-python package which can handle UTF-8 strings.
-        
-        * License for Bittorrent-python code is [Bittorrent Open Source License](http://www2.bittorrent.com/legal/bittorrent-open-source-license)
-        
-        * Removed external dependency for Bittorrent-python module.
-        
-        * Reverted changes from 0.1.2.
-
-0.1.2 - Bug Fix [PT #14231273](https://www.pivotaltracker.com/story/show/14231273)
-
-        * UTF-8 encoded envelopes failed to sign.
-         
-            - Unicode strings are now UTF-8 encoded before bencoding.
-        
-            
-0.1.1 - Minor Bug Fix
-
-        * When gnupgHome is not defined, default option creates a directory named "~".
-        
-        
-0.1.0 - Initial Release
+[See README.txt](https://github.com/jimklo/LRSignature/tree/master/src "See README.txt")

@@ -291,7 +291,7 @@ class Test(unittest.TestCase):
     def testWrongSignature(self):
         '''Test using a mis-matched signature, using a signature from a different valid envelope'''
         unsigned = json.loads(self.sampleJSON)
-        altered = copy.copy(unsigned)
+        altered = copy.deepcopy(unsigned)
         altered["X_corrupted"] = "Altered Envelope"
         
         signtool = Sign_0_21(privateKeyID=self.privateKey.fingerprint, passphrase=self.genericPassphrase, gnupgHome=self.gnupgHome, gpgbin=self.gpgbin, publicKeyLocations=self.sampleKeyLocations)
@@ -329,7 +329,7 @@ class Test(unittest.TestCase):
         assert verified == True, "baseline validation failed"
         
         # manipulate the hash portion of a signature block
-        altered = copy.copy(unsigned)
+        altered = copy.deepcopy(unsigned)
         altered["X_corrupted"] = "Altered Envelope"
         altered_hash = signtool.get_message(altered)
         

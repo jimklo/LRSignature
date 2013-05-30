@@ -164,6 +164,174 @@ class Test(unittest.TestCase):
                 }
             }
             '''
+
+        self.sampleJSON_no_coercion = '''
+            {
+                "_id":"00e3f67232e743b6bc2a079bd98ff55a",
+                "_rev":"1-8163d32f6cc9996f2b7228d8b5db7962",
+                "doc_type":"resource_data",
+                "update_timestamp":"2011-03-14 13:36:04.617999",
+                "resource_data": {
+                    "name": "Test coersion",
+                    "nullable": null,
+                    "booleanT": true,
+                    "booleanF": false
+                },
+                "keys":["United States--Description and travel.","eng"],
+                "identity":{
+                    "submitter_type":"agent",
+                    "submitter":"NSDL 2 LR Data Pump"
+                },
+                "resource_data_type":"metadata",
+                "payload_schema_locator":"http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd",
+                "payload_placement":"inline",
+                "payload_schema":["oai_dc"],
+                "node_timestamp":"2011-03-14 13:36:04.617999",
+                "doc_version":"0.23.0",
+                "create_timestamp":"2011-03-14 13:36:04.617999",
+                "active":true,
+                "publishing_node":"string",
+                "resource_locator":"http://hdl.loc.gov/loc.gdc/lhbtn.12281",
+                "doc_ID":"00e3f67232e743b6bc2a079bd98ff55a",
+                "TOS": {
+                    "submission_TOS": "http://example.com/tos/unknown",
+                    "submission_attribution": "unidentified"
+                }
+            }
+            ''';
+
+
+        self.sampleJSON_lossy_sha256 = [
+            '''
+            {
+                "_id":"00e3f67232e743b6bc2a079bd98ff55a",
+                "_rev":"1-8163d32f6cc9996f2b7228d8b5db7962",
+                "doc_type":"resource_data",
+                "update_timestamp":"2011-03-14 13:36:04.617999",
+                "resource_data": {
+                    "name": "Test Lossy"
+                    "integer": 1
+                },
+                "keys":["United States--Description and travel.","eng"],
+                "identity":{
+                    "submitter_type":"agent",
+                    "submitter":"NSDL 2 LR Data Pump"
+                },
+                "resource_data_type":"metadata",
+                "payload_schema_locator":"http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd",
+                "payload_placement":"inline",
+                "payload_schema":["oai_dc"],
+                "node_timestamp":"2011-03-14 13:36:04.617999",
+                "doc_version":"0.23.0",
+                "create_timestamp":"2011-03-14 13:36:04.617999",
+                "active":true,
+                "publishing_node":"string",
+                "resource_locator":"http://hdl.loc.gov/loc.gdc/lhbtn.12281",
+                "doc_ID":"00e3f67232e743b6bc2a079bd98ff55a",
+                "TOS": {
+                    "submission_TOS": "http://example.com/tos/unknown",
+                    "submission_attribution": "unidentified"
+                }
+            }
+            ''',
+            '''
+            {
+                "_id":"00e3f67232e743b6bc2a079bd98ff55a",
+                "_rev":"1-8163d32f6cc9996f2b7228d8b5db7962",
+                "doc_type":"resource_data",
+                "update_timestamp":"2011-03-14 13:36:04.617999",
+                "resource_data": {
+                    "name": "Test Lossy"
+                    "float": 1.1
+                },
+                "keys":["United States--Description and travel.","eng"],
+                "identity":{
+                    "submitter_type":"agent",
+                    "submitter":"NSDL 2 LR Data Pump"
+                },
+                "resource_data_type":"metadata",
+                "payload_schema_locator":"http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd",
+                "payload_placement":"inline",
+                "payload_schema":["oai_dc"],
+                "node_timestamp":"2011-03-14 13:36:04.617999",
+                "doc_version":"0.23.0",
+                "create_timestamp":"2011-03-14 13:36:04.617999",
+                "active":true,
+                "publishing_node":"string",
+                "resource_locator":"http://hdl.loc.gov/loc.gdc/lhbtn.12281",
+                "doc_ID":"00e3f67232e743b6bc2a079bd98ff55a",
+                "TOS": {
+                    "submission_TOS": "http://example.com/tos/unknown",
+                    "submission_attribution": "unidentified"
+                }
+            }
+            ''',
+            '''
+            {
+                "_id":"00e3f67232e743b6bc2a079bd98ff55a",
+                "_rev":"1-8163d32f6cc9996f2b7228d8b5db7962",
+                "doc_type":"resource_data",
+                "update_timestamp":"2011-03-14 13:36:04.617999",
+                "resource_data": {
+                    "name": "Test Lossy"
+                    "max_int": 9007199254740990
+                },
+                "keys":["United States--Description and travel.","eng"],
+                "identity":{
+                    "submitter_type":"agent",
+                    "submitter":"NSDL 2 LR Data Pump"
+                },
+                "resource_data_type":"metadata",
+                "payload_schema_locator":"http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd",
+                "payload_placement":"inline",
+                "payload_schema":["oai_dc"],
+                "node_timestamp":"2011-03-14 13:36:04.617999",
+                "doc_version":"0.23.0",
+                "create_timestamp":"2011-03-14 13:36:04.617999",
+                "active":true,
+                "publishing_node":"string",
+                "resource_locator":"http://hdl.loc.gov/loc.gdc/lhbtn.12281",
+                "doc_ID":"00e3f67232e743b6bc2a079bd98ff55a",
+                "TOS": {
+                    "submission_TOS": "http://example.com/tos/unknown",
+                    "submission_attribution": "unidentified"
+                }
+            }
+            ''',
+            '''
+            {
+                "_id":"00e3f67232e743b6bc2a079bd98ff55a",
+                "_rev":"1-8163d32f6cc9996f2b7228d8b5db7962",
+                "doc_type":"resource_data",
+                "update_timestamp":"2011-03-14 13:36:04.617999",
+                "resource_data": {
+                    "name": "Test Lossy"
+                    "min_int": -9007199254740990
+                },
+                "keys":["United States--Description and travel.","eng"],
+                "identity":{
+                    "submitter_type":"agent",
+                    "submitter":"NSDL 2 LR Data Pump"
+                },
+                "resource_data_type":"metadata",
+                "payload_schema_locator":"http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd",
+                "payload_placement":"inline",
+                "payload_schema":["oai_dc"],
+                "node_timestamp":"2011-03-14 13:36:04.617999",
+                "doc_version":"0.23.0",
+                "create_timestamp":"2011-03-14 13:36:04.617999",
+                "active":true,
+                "publishing_node":"string",
+                "resource_locator":"http://hdl.loc.gov/loc.gdc/lhbtn.12281",
+                "doc_ID":"00e3f67232e743b6bc2a079bd98ff55a",
+                "TOS": {
+                    "submission_TOS": "http://example.com/tos/unknown",
+                    "submission_attribution": "unidentified"
+                }
+            }
+            '''
+
+        ]
         
         self.sampleJSON_strip = '''{"keys": ["United States--Description and travel.", "eng"], "TOS": {"submission_attribution": "unidentified", "submission_TOS": "http://example.com/tos/unknown"}, "payload_placement": "inline", "active": true, "resource_locator": "http://hdl.loc.gov/loc.gdc/lhbtn.12281", "doc_type": "resource_data", "resource_data": "<oai_dc:dc xmlns:oai_dc=\\"http://www.openarchives.org/OAI/2.0/oai_dc/\\" xmlns:dc=\\"http://purl.org/dc/elements/1.1/\\" xmlns:xsi=\\"http://www.w3.org/2001/XMLSchema-instance\\" xmlns=\\"http://www.openarchives.org/OAI/2.0/\\" xsi:schemaLocation=\\"http://www.openarchives.org/OAI/2.0/oai_dc/                          http://www.openarchives.org/OAI/2.0/oai_dc.xsd\\">\\n<dc:title>A chat about America. October and November, 1884.</dc:title>\\n<dc:creator>J. P.</dc:creator>\\n<dc:subject>United States--Description and travel.</dc:subject>\\n<dc:description>\\"Printed for private circulation only.\\"</dc:description>\\n<dc:description>Electronic reproduction. Washington, D.C. : Library of Congress, [2002-2003]</dc:description>\\n<dc:publisher>Manchester, Palmer &amp; Howe</dc:publisher>\\n<dc:date>1885</dc:date>\\n<dc:type>text</dc:type>\\n<dc:identifier>http://hdl.loc.gov/loc.gdc/lhbtn.12281</dc:identifier>\\n<dc:language>eng</dc:language>\\n<dc:coverage>United States</dc:coverage>\\n</oai_dc:dc>\\n      ", "submitter_type": "agent", "resource_data_type": "metadata", "payload_schema_locator": "http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd", "payload_schema": ["oai_dc"], "doc_version": "0.10.0", "submitter": "NSDL 2 LR Data Pump"}'''
         self.sampleJSON_strip_normal = '''{"keys": ["United States--Description and travel.", "eng"], "TOS": {"submission_attribution": "unidentified", "submission_TOS": "http://example.com/tos/unknown"}, "payload_placement": "inline", "active": "true", "resource_locator": "http://hdl.loc.gov/loc.gdc/lhbtn.12281", "doc_type": "resource_data", "resource_data": "<oai_dc:dc xmlns:oai_dc=\\"http://www.openarchives.org/OAI/2.0/oai_dc/\\" xmlns:dc=\\"http://purl.org/dc/elements/1.1/\\" xmlns:xsi=\\"http://www.w3.org/2001/XMLSchema-instance\\" xmlns=\\"http://www.openarchives.org/OAI/2.0/\\" xsi:schemaLocation=\\"http://www.openarchives.org/OAI/2.0/oai_dc/                          http://www.openarchives.org/OAI/2.0/oai_dc.xsd\\">\\n<dc:title>A chat about America. October and November, 1884.</dc:title>\\n<dc:creator>J. P.</dc:creator>\\n<dc:subject>United States--Description and travel.</dc:subject>\\n<dc:description>\\"Printed for private circulation only.\\"</dc:description>\\n<dc:description>Electronic reproduction. Washington, D.C. : Library of Congress, [2002-2003]</dc:description>\\n<dc:publisher>Manchester, Palmer &amp; Howe</dc:publisher>\\n<dc:date>1885</dc:date>\\n<dc:type>text</dc:type>\\n<dc:identifier>http://hdl.loc.gov/loc.gdc/lhbtn.12281</dc:identifier>\\n<dc:language>eng</dc:language>\\n<dc:coverage>United States</dc:coverage>\\n</oai_dc:dc>\\n      ", "submitter_type": "agent", "resource_data_type": "metadata", "payload_schema_locator": "http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd", "payload_schema": ["oai_dc"], "doc_version": "0.10.0", "submitter": "NSDL 2 LR Data Pump"}''' 
@@ -233,8 +401,25 @@ class Test(unittest.TestCase):
         stripJson = signer._stripEnvelope(origJson)
         normalJson = signer._bnormal(stripJson)
         bencodeJson = signer._buildCanonicalString(normalJson)
-        hash = signer._hash(bencodeJson)
-        assert benchmark == hash
+        hashed = signer._hash(bencodeJson)
+        assert benchmark == hashed
+
+    def testKnownLossyHash(self):
+        for idx, lossyJSON in enumerate(self.sampleJSON_lossy_sha256):
+            origJson = json.loads(self.sampleJSON)
+             
+            signer = Sign_0_21(self.goodkeyid, gnupgHome=self.gnupgHome, gpgbin=self.gpgbin)        
+            stripJson = signer._stripEnvelope(origJson)
+            normalJson = signer._bnormal(stripJson)
+            bencodeJson = signer._buildCanonicalString(normalJson)
+            hashed = signer._hash(bencodeJson)
+            
+            if idx > 0:
+                assert prev_hashed == hashed, "Hashes should match - algorithm is lossy"
+                assert prev_bencodeJson == bencodeJson, "Bencode strings should match - algorithm is lossy"
+
+            prev_bencodeJson = bencodeJson
+            prev_hashed = hashed 
         
     def testGetMessage(self):
         origJson = json.loads(self.sampleJSON)
@@ -259,7 +444,23 @@ class Test(unittest.TestCase):
         
         signer = Sign_0_21(self.goodkeyid, passphrase=self.goodpassphrase, publicKeyLocations=arbitraryKeyLoc, gnupgHome=self.gnupgHome, gpgbin=self.gpgbin)
         assert benchmark == signer._get_sig_block(arbitrarySigdata)
-     
+    
+    def testSignNoEnvelopeCoercion(self):
+        origJson = json.loads(self.sampleJSON_no_coercion)
+        arbitraryKeyLoc = self.sampleKeyLocations
+        
+        assert origJson["resource_data"]["nullable"] == None, "Expected null"
+        assert origJson["resource_data"]["booleanT"] == True, "Expected true"
+        assert origJson["resource_data"]["booleanF"] == False, "Expected false"
+
+        signer = Sign_0_21(self.goodkeyid, passphrase=self.goodpassphrase, publicKeyLocations=arbitraryKeyLoc, gnupgHome=self.gnupgHome, gpgbin=self.gpgbin)
+        signed = signer.sign(origJson)
+        
+        assert signed.has_key("digital_signature")
+        assert origJson["resource_data"]["nullable"] == None, "Expected null"
+        assert origJson["resource_data"]["booleanT"] == True, "Expected true"
+        assert origJson["resource_data"]["booleanF"] == False, "Expected false"
+
     def testSign_0_10__no_passthru(self):
         origJson = json.loads(self.sampleJSON)
         arbitraryKeyLoc = self.sampleKeyLocations

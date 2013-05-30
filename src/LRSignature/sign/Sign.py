@@ -21,7 +21,7 @@ import re
 import hashlib
 import gnupg
 import types
-import os
+import os, copy
 from LRSignature.errors import UnknownKeyException
 from LRSignature.bencode import bencode
 
@@ -73,10 +73,13 @@ class Sign_0_21(object):
     def _bnormal(self, obj = {}):
             if isinstance(obj, types.NoneType):
                 return "null"
-            elif isinstance(obj, types.FloatType):
-                return str(obj)
+            # Boolean needs to be checked before numeric types as Booleans are also IntType
             elif isinstance(obj, types.BooleanType):
                 return str(obj).lower()
+            elif isinstance(obj, (types.FloatType, types.IntType, types.LongType, types.ComplexType)):
+                print "Dropping number: {0}\n".format(obj)
+                raise TypeError("Numbers not permitted")
+                # return str(obj)
             elif isinstance(obj, types.StringType):
                 return obj
             elif isinstance(obj, types.UnicodeType):
@@ -84,18 +87,24 @@ class Sign_0_21(object):
             elif isinstance(obj, types.ListType):
                 nobj = []
                 for child in obj:
-                    nobj.append(self._bnormal(child))
+                    try:
+                        nobj.append(self._bnormal(child))
+                    except TypeError:
+                        pass
                 return nobj
             elif isinstance(obj, types.DictType):
                 for key in obj.keys():
-                    obj[key] = self._bnormal(obj[key])
+                    try:
+                        obj[key] = self._bnormal(obj[key])
+                    except TypeError:
+                        pass
                 return obj
             else:
                 return obj
     
     def _stripEnvelope(self, envelope={}):
         fields = ["digital_signature", "publishing_node", "update_timestamp", "node_timestamp", "create_timestamp", "doc_ID", "_id", "_rev"]
-        sigObj = envelope.copy()
+        sigObj = copy.deepcopy(envelope)
         for field in fields:
             if sigObj.has_key(field):
                 del sigObj[field]

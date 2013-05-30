@@ -104,6 +104,13 @@ Other Python Dependencies:
 
 Versions
 ========
+0.1.14 - Significant Bug Fixes:
+        
+        * Fixed signing so that it performs a "deep copy" instead of a shallow copy.  
+        * Fixed algorithm to properly drop numbers on envelope before passing to bencode.  
+
+        Other: Made testsuite work with Jenkins continuous integration.
+
 0.1.13 - Modified fetchkey to extract Windows linefeed terminated keys, and exposed a new function in Verify that returns the pgp verification info after signature verification.
 
 0.1.12 - No changes; modified dependency version number for python-gnupgp

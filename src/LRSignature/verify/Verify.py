@@ -63,7 +63,7 @@ class Verify_0_21(Sign_0_21):
         
         def removeHead(mesg=[]):
             status = 0
-            mcopy = copy.copy(mesg)
+            mcopy = copy.deepcopy(mesg)
             for line in mesg:
                 if re.match("^-----BEGIN PGP (SIGNED ){0,1}MESSAGE-----$", line) != None:
                     status = 1
