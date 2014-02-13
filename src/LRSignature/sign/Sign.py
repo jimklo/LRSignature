@@ -97,7 +97,7 @@ class Sign_0_21(object):
                     try:
                         obj[key] = self._bnormal(obj[key])
                     except TypeError:
-                        pass
+                        obj[key] = self._bnormal(None)
                 return obj
             else:
                 return obj
